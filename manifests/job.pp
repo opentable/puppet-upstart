@@ -33,17 +33,25 @@ define upstart::job (
   $restart        = undef
 ) {
 
-  validate_re($ensure, '^(present|absent)$',
-    'ensure must be "present" or "absent".')
+  if $ensure != undef {
+    validate_re($ensure, '^(present|absent)$',
+      'ensure must be "present" or "absent".')
+  }
 
-  validate_re($service_ensure, '^(running|true|stopped|false)$',
-    'service_ensure must be "running" or "stopped".')
+  if $service_ensure != undef {
+    validate_re($service_ensure, '^(running|true|stopped|false)$',
+      'service_ensure must be "running" or "stopped".')
+  }
 
-  validate_re($console, '^(log|none|output)$',
-    'console must be "log", "none", or "output".')
+  if $console != undef {
+    validate_re($console, '^(log|none|output)$',
+      'console must be "log", "none", or "output".')
+  }
 
-  validate_re($expect, '^(|fork|daemon|stop)$',
-    'expect must be "fork", "daemon", "stop".')
+  if $expect != undef {
+    validate_re($expect, '^(|fork|daemon|stop)$',
+      'expect must be "fork", "daemon", "stop".')
+  }
 
   validate_bool($service_enable)
   validate_bool($respawn)
